@@ -38,62 +38,32 @@
 			</section>
 
 			<!-- Content -->
-				<section id="content">
+				<section id="content" >
 					<div class="container">
 						<div class="row">
-							<div class="col-12">
+							<div class="col-11" align="center">
 
 								<!-- Main Content -->
 									<section>
 										<header>
 											<h2>Prototipo Estereoscópico de Monitoreo Subacuático</h2>
 										</header>
-										<p>
-											Este proyecto nace de la necesidad de encontrar tema de tesis para
-											mis estudios de maestría, además de un gran interés , mío por los algoritmos de visión
-											computacional, como las redes neuronales convolucionales o la reconstrucción
-											tridimensional de escenas a partir de imágenes. Así que buscando algún proyecto que
-											incluyera tales temas, mi tutora me platicó de David Espinosa [1], quien desarrolló su tésis de maestría
-											implementando un sistema de monitoreo subacuático. Innovando el cómo se monitoreaba la 
-											fauna acuática, aunque el problema recaía en procesar y analizar todos los datos de
-											video, que podían llegar a ser horas de datos y muchas horas más de análisis. En un intento
-											de automatizar este proceso, Ernesto Castillo utilizó una buena parte de los datos de David para
-											hacer la anotación de los peces encontrados. Con estos datos anotados entrenó una red neuronal convolucional,
-											más precisamente una <a href="https://github.com/matterport/Mask_RCNN">Mask-RCNN</a>, la cual tiene la
-											capacidad de localizar objetos y generar una máscara de segmentación a nivel de píxel.
+										<p align="justify">
+											Como proyecto de tesis de maestría, desarrollé un prototipo de un sistema de detección y medición automática de peces. Este utiliza una red profunda tipo <a href="">YOLO</a> para hacer la detección de peces en la imagen, entrenada con <i>transfer learning</i> e imágenes subacuáticas de peces. Además se utiliza geometría epipolar para hacer la reconstrucción de los puntos que nos interesan (boca y aleta), con lo que se estima la longitud total del pez.
 										</p>
 
-										<p>
-											Con esta información me interesé por continuar el trabajo de Ernesto y obtener información pertinente de los
-											videos; específicamente hacer mediciones sobre los peces, como estimar su longitud. Sin embargo, para hacer
-											poder hacer algo así es necesaria más información sobre la escena. Con una sola cámara, si no se tienen una referencia
-											sobre la posición de los objetos, es imposible tener información sobre la profundidad y, en consecuencia, sobre su
-											posición en el espacio. Esta reducción de dimensionalidad ha permitido que el cine del sigo pasado, antes de todos
-											los efectos computarizados, pudiera crear efectos tan reales como el de la siguiente imagen.
+										<p align="justify">
+											Se realizaron pruebas en un ambiente controlado (pecera con control de iluminación y figuras rígidas de peces), donde se obtuvieron muy buenos resultados con errores de hasta un 2.5% de la longitud real del pez. Se realizó una primera prueba en un ambiente semi-contolado (peces vivos y poco control sobre la iluminación y contaminación del agua), obteniendo resultados aceptables, aunque con una gran oportunidad de mejora.
 										</p>
-										<figure>
-											<center>
-												<img src="pesm_imgs/perspectiva.jpg" >
-												<figcaption>Efecto de perspectiva. No se tiene información de profundidad con una sola vista. Imagen de <a href="https://www.flickr.com/photos/x1brett/4397342913/in/photolist-7GzwR8-V7G8-51WEzn-dPN1C-cBbAV-2gTcP8x-2m7docr-2khs8xE-PCk25g-2539P8r-2m3tA2g-2aewh17-2jeTtkg-2j6vuNT-e3tVG-29TLpy3-2jKnBkp-2cw62Q2-2jDqfQ4-2i6oSkB-2gKCvXU-r1xftH-2hLDRbD-DiUF1v-T3tqsA-RYRaeo-2kQhPqN-2hxLj2n-2j72fdf-G6sPeZ-2kKH63H-FRaJFL-zWC68R-5QRfpz-2g45q9u-4gP9Kr-4BuPGj-8GD4Ct-CyDtqt-2brQfob-9P8xYA-7TAEc5-Kfdxwx-NjJyEn-2jsKnXy-2jamuFJ-2i94uLK-JmQNkW-4SeE5A-LiTfUi">Brett Jordan</a>.</figcaption>
-											</center>
-										</figure>
 
-										<p>
-											Como podemos ver, este efecto visual, generado por la poca información que nos llega de una sola imagen,
-											nos hace creer que la persona que está sentada en la silla parezca mucho más pequeña de lo que realmente
-											es. Si no tenemos una referencia sobre la posición real de esta persona nos es imposible definir si 
-											los tamaños que estimamos son los reales.
 
+										<p align="justify">
+											Los resultados de este trabajo se presentaron en el XIII Congreso Mexicano de Inteligencia Artificial (<a href=http://smia.mx/comia/2021/index.html>COMIA 2021</a>), y está en proceso de publicarse en un número especial de la revista Research in Computer Science. A continuación se muestra la participación en este congreso.
 										</p>
+
 										
-										<header>
-											<h3>Referencias</h3>
-										</header>
+										<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FSMIA.Mexico%2Fvideos%2F221254729505715%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
 
-										[1] David Arturo Espinosa Mendoza. “Variaciones temporales de la comunidad de peces en un humedal costero de Yucatán, mediante imágenes subacuáticas y técnicas tradicionales”.
-											 Tesis de mtría. Instituto de Ciencias del Mar y Limnología: UNAM, 2019<br>
-										[2] Ernesto Jesus Castillo Varguez. “Redes neuronales profundas para la detección de peces en ambientes subacuáticos”. 
-											Facultad de Ingeniería: UNAM,2019. url:http://132.248.52.100:8080/xmlui/handle/132.248.52.100/17464 <br>
 
 									</section>
 
