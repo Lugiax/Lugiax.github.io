@@ -10,8 +10,8 @@ html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
 pre, a, abbr, acronym, address, big, cite,
 code, del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var, b,
-u, i, center, dl, dt, dd, ol, ul, li, fieldset,
+small, strike, strong, tt, var,
+u, center, dl, dt, dd, ol, ul, li, fieldset,
 form, label, legend, table, caption, tbody,
 tfoot, thead, tr, th, td, article, aside,
 canvas, details, embed, figure, figcaption,
@@ -75,6 +75,12 @@ pre {
 	text-align: left;
   }
 
+canvas {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+}
+
   
 /* Basic */
 
@@ -105,6 +111,7 @@ pre {
 
 	ul, ol, p, dl {
 		margin: 0 0 2em 0;
+		font-size: 16pt;
 	}
 
 	a {
@@ -1532,10 +1539,11 @@ pre {
 			left: 0;
 			bottom: 35px;
 			font-size: 2.75em;
+			color: white;
 		}
 
 			#header h1 a {
-				color: #fff;
+				color: white;
 				text-decoration: none;
 			}
 
@@ -1623,14 +1631,15 @@ pre {
 		}
 
 		#content h2 {
-			font-size: 1.8em;
+			font-size: 26pt;
+			font-family: cursive;
 			color: #373f42;
 			margin: 0 0 0.25em 0;
 		}
 
 		#content h3 {
 			color: #96a9b5;
-			font-size: 1.25em;
+			font-size: 20pt;
 		}
 
 		#content a {
@@ -2027,3 +2036,30 @@ pre {
 			}
 
 	}
+
+.column {
+  float: left;
+  padding: 5px;
+}
+
+.left {
+  width: 65%;
+  background-color: transparent;
+}
+
+.right {
+  width: 35%;
+  padding: 10px 15px;
+  background-color: transparent;
+}
+
+.right p{
+  font-size: 18px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
