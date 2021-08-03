@@ -1,14 +1,19 @@
-const CANVASSHAPE = [400,2000];
-const AUTOMATAWIDTH = 8000;
-var RULE, RULELIST, IN, AUTOMATON;
-
-var CELLSIZE = 5
-const COLS = Math.ceil(AUTOMATAWIDTH/CELLSIZE);
-const ROWS = Math.ceil(CANVASSHAPE[1]);
+var RULE, RULELIST, IN, AUTOMATON, CANVASSHAPE, CELLSIZE, COLS, ROWS, WIDTH, FACTOR;
 
 
-function setup() {
+function setup() {  
+  let canvas_el = document.getElementById('canvas-column');
+  let cellsize = document.getElementById("cellsize");
+  WIDTH = canvas_el.offsetWidth
+  CELLSIZE = parseInt(cellsize.value)
+  FACTOR= Math.ceil(2/CELLSIZE);
+
+  CANVASSHAPE = [WIDTH, WIDTH*9];
+  
   let canvas = createCanvas(CANVASSHAPE[0], CANVASSHAPE[1]);
+  
+  ROWS = Math.ceil(CANVASSHAPE[1]);
+  
   canvas.parent('sketch-container');
   noLoop();
 }
@@ -25,13 +30,14 @@ function draw() {
   CELLSIZE = parseInt(cellsize.value);
   RULELIST = RULE.toString(2).padStart(8, '0').split('').reverse().join('');
 
+  FACTOR= Math.ceil(2/CELLSIZE);
+  COLS = Math.ceil(FACTOR*WIDTH*6/CELLSIZE);
   AUTOMATON = [''.padStart(Math.floor(COLS/2), '0') + '1' + ''.padStart(Math.floor(COLS/2), '0')]; //Initial state
   
   for (let i = 0 ; i < ROWS; i++){
     drawCells(AUTOMATON[i], i);
     update(AUTOMATON);
   }
-  console.log(AUTOMATON)
 
 }
 

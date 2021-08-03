@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>CA Blog</title>
+	<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carlos Aranda's blog.">
+    <link rel="stylesheet" href="../assets/css/blog.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="../blog.html">inicio</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Autómatas celulares</a></li>
+                <li class="pure-menu-item"><a href="proc_text.html" class="pure-menu-link">Procesamiento de texto</a></li>
+
+                <li class="pure-menu-item menu-item-divided">
+                    <a href="../index.html" class="pure-menu-link">Ir a proyectos</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="main">
+        <div class="header">
+            <h1>Autómatas Celulares</h1>
+        </div>
+
+        <div class="content">
+
+            <div class="pure-g">
+
+                <div class="pure-u-16-24">
+
+                    <h2 class="content-subhead">¿Por qué autómatas?</h2>
+
+                    <p align='justify'>La primera vez que escuché hablar sobre autómatas celulares fue en la carrera, poco después de comenzar a programar. El puro nombre me cautivó, pues son dos palabras que no pensé que tuvieran relación entre ellas. Tenía la idea de que un autómata era un objeto que realizaba una serie de tareas predefinidas, por otro lado algo celular lo vinculaba yo a elementos pequeños, casi como <i>building blocks</i>. El término lo escuché de un profesor que realizaba simulaciones de fenómenos físicos, lo cual no hizo más que aumentar la curiosidad.</p>
+
+                    <p align='justify'>No fue hasta hace poco que comencé a trabajar con diferentes tipos de autómatas que me terminé enamorando de ellos. Y finalmente, gracias a la motivadora lectura del libro <b>A new kind of science</b>, de Stephen Wolfram, es que he decidido plasmar lo que he aprendido de ellos en estas letras. </p>
+
+                    <h2 class="content-subhead">Autómata lineal</h2>
+                    <p align='justify'>
+                    Wolfram (un scientífico sencillo y carismático, además de muy astuto), a una edad muy temprana comenzó a estudiar diferentes clases de autómatas, y cómo estos generan diferentes patrones. Muchos de estos patrones, si no es que la gran mayoría, son repetitivos y/o muy sencillos. Algunos de ellos son auténticos fractales, como la regla <b>90</b> o la <b>60</b>, por decir solo dos (y que puedes simular en la columna derecha :D). Tal vez no parezca asombroso a primera vista, pues hemos visto patrones más complejos y más hermosos todos los días (desde la forma de una flor, hasta un atardecer). Lo increible surge cuando entendemos cómo están hechos.
+                     </p>
+                     <p align="justify">
+                     Stephen propone un sistema de reglas sencillas que permite analizar todo el espacio de estudio de un autómata binario lineal (o sea que cada celda puede tener solo dos valores, 0 o 1, y se encuentran todas en una sola linea). El fundamento es el siguiente: en estos autómatas, una celda solo tiene dos vecinos, esto significa que hay 2<sup>3</sup>=8 posibles combinaciones de estados entre tres celdas. De esta manera, el siguiente estado de la celda en cuestión (que solo podrá tener dos valores, 0 o 1) estará definido por este vecindario.
+                     </p>
+
+                     <center>
+                         <figure>
+                             <img src=https://mathworld.wolfram.com/images/eps-gif/ElementaryCA30Rules_750.gif width=70%>
+                         </figure>
+                         <figcaption>Ejemplo de cómo se consideran los vecindarios en una regla: la línea superior representa el vecindario, con la celda en estudio en medio; debajo de esta línea está el estado que le corresponde en la actualización de la celda. Se consideran las celdas negras como vivas (1) y las blancas como muertas (0). Obtenido de <a href=https://mathworld.wolfram.com/ElementaryCellularAutomaton.html>mathworld</a>.</figcaption>
+                     </center>
+
+                     <p align="justify">
+                     En la figura anterior se muestra gráficamente cómo se ve una de las reglas (en específico la regla 30). En la línea superior podemos apreciar tres celdas: la de en medio corresponde a la celda que estamos estudiando, y a sus costados están sus vecinas. Debajo de estas hay otra celda, esta representa el nuevo estado en el que se encontrará la celda en estudio, y que depende directamente del estado de sus vecinas.
+                     </p>
+
+
+                     <p align="justify">
+                     El autómata lineal es representado como una secuencia de celdas cuyos estados están definidos. En la imagen siguiente podemos observar una lista de celdas donde solo una está viva, a este estado le llamaremos S<sub>1</sub>. Si la actualización se hace secuencial, comenzamos desde la segunda celda a la izquierda y sus dos vecinas para determinar el siguiente estado. A medida que avanzamos nos acercamos a la celda viva, donde comienza lo interesante. Tomando 3 celdas objetivo para este ejemplo (marcadas por una estrella), se muestra cómo se toma cada vecindario y cómo este define el nuevo estado del autómata (S<sub>2</sub>, S<sub>3</sub>, ...). Recordemos que cada nuevo estado de cada celda está definido por una regla en específico.
+                     </p>
+
+                     <center>
+                         <figure>
+                             <img src="imgs/ca_update.png" width=40%>
+                         </figure>
+                         <figcaption>Proceso de actualización del autómata celular.</figcaption>
+                     </center>
+
+                    <p align="justify">
+                    Si cada una de las salidas se juntan, una después de la otra, podemos ver el comportamiento a través del tiempo del autómata. Así es como se construyeron las figuras siguientes:
+                    </p>
+
+                     <center>
+                         <figure>
+                             <img class="pure-img-responsive" src=https://mathworld.wolfram.com/images/eps-gif/ElementaryCA_850.gif width=80%>
+                         </figure>
+                         <figcaption>Ejemplos de patrones generados por un autómata celular lineal. Obtenido de <a href=https://mathworld.wolfram.com/ElementaryCellularAutomaton.html>mathworld</a>.</figcaption>
+                     </center>
+
+                     <p align='justify'>Ahora, con lo que ya sabemos, ¿no es increíble cómo a partir de reglas sencillas surgan comporamientos tan hermosos? Muchos organizados, pocos caóticos, y lo más interesante es que no hay una manera analítica de predecir cómo se verá. Lá única manera de saberlo es ejecutando la simulación hasta donde nuestra curiosidad (o el poder de cómputo, lo que suceda primero) nos deje.</p>
+                </div>
+
+                <div class="pure-u-8-24">
+                    <div id="canvas-column">
+                        <p align="justify">
+                        Puedes jugar con este autómata. Modifica el número de regla y el tamaño de la celda a voluntad, solo recuerda que los valores válidos para las reglas van de 0 a 255. (Se dibuja en tiempo real, por lo que puede trabarse un poco)
+                        </p>
+                        <p id='consola'></p>
+                        <p align="center">
+                            Regla: <input type="text" id="ruleinput" value="30" size="1" onchange="redraw()">   -   Tamaño celda: <input type="text" id="cellsize" value="5" size="1" onchange="redraw()">
+                        </p>
+                        <div id="sketch-container"></div>
+                        <script src="scripts/linearautomata.pde"></script>
+                    </div>
+
+                </div>
+            
+            </div> <!-- Fin del contenedor -->
+
+
+
+            
+        </div>
+    </div>
+</div>
+
+<!-- <script src="/js/ui.js"></script> -->
+
+</body>
+</html>
