@@ -1,128 +1,92 @@
-<!DOCTYPE HTML>
-<!--
-	Halcyonic by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Publicaciones</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="subpage">
-		<div id="page-wrapper">
+<head>
+	<meta charset="utf-8">
+	<title>Carlos Aranda</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carlos Aranda's github project page.">
+	<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/general.css">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+</head>
+<body>
 
-			<!-- Header -->
-				<section id="header">
-					<div class="container">
-						<div class="row">
-							<div class="col-12">
+<div class="header">
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <!-- <a class="pure-menu-heading" href="">Carlos Aranda</a> -->
 
-								<!-- Logo -->
-								<h1><a href="index.html" id="logo">Publicaciones</a></h1>
+        <ul class="pure-menu-list">
+            <li class="pure-menu-item"><a href="index.html" class="pure-menu-link">Inicio</a></li>
+            <li class="pure-menu-item"><a href="proyectos.html" class="pure-menu-link">Proyectos</a></li>
+            <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Publicaciones</a></li>
+            <li class="pure-menu-item"><a href="blog.html" class="pure-menu-link">Blog</a></li>
+        </ul>
+    </div>
+</div>
 
-								<!-- Nav -->
-									<nav id="nav">
-										<a href="index.html">Inicio</a>
-										<a href="proyectos.html">Proyectos</a>
-										<a href="publicaciones.html">Publicaciones</a>
-										<a href="blog.html">Blog</a>
-									</nav>
+<div class="content-pub content">
+    
+    <div class="tipo-pub">
+        <div class="header-pub">
+            <h1> Estudios</h1>    
+        </div>
+        
 
-							</div>
-						</div>
-					</div>
+        <div class="publicacion">
+            <h2>Uso de Algoritmos Genéticos y Redes Neuronales para Control Predictivo en un Reactor tipo CSTR <br> Tesis de licenciatura - UNAM</h2>
+            <center> <img src="images/pub_tesis_ing.png" alt="Diagrama de flujo del sistema" width="300" /> </center>
+            <p>
+                Diseño de un sistema de control predictivo para la operación de un CSTR para la producción de propilenglicol, capaz de reaccionar a diferentes tipos de perturbaciones. El sistema utiliza una red neuronal para estimar los parámetros ideales de control, que fueron encontrados por medio de un algoritmo genetico. Tanto la red como el algoritmo genetico fueron programados desde cero con Python. <a href=http://132.248.9.195/ptd2016/julio/0746861/Index.html>Liga a la tesis.</a>
+            </p>
+           
+        </div>
 
-				</section>
+    </div>
 
-			<!-- Content -->
-				<section id="content">
+    <div class="tipo-pub">
+        <div class="header-pub">
+            <h1> Congresos</h1>
+        </div>
 
-					<div class="container">
-						<div class="row aln-center">
+        <div class="publicacion">
+            <h2>Registro de Nubes de Puntos 2D: Comparación entre Métodos Iterativos y una Red neuronal Artificial <br> <a href=http://ci2t.tij.uabc.mx/>CI2T 2021</a></h2>
+            <center><img src="images/pub_ci2t2021.png" height="250"/></center>
+            <p>
+                El trabajo se basó en la comparación de la eficientia entre tres algoritmos iterativos (Iterative Closest Points, Random Sample Consensus y Coherent Point Drift) y una arquitectura propia de Red Neuronal Artificial, para la tarea de registro de nubes de puntos en 2D. Accede a la <a href="docs/constanciaCI2T.pdf">constancia de participación</a>.
+            </p>
+           
+        </div>
 
-							<div class="col-8 col-6-medium col-12-small">
+        <div class="publicacion">
+            <h2>Sistema Prototipo de Monitoreo Subacuático Automático de Peces por Visión Estereoscópica y Aprendizaje Profundo<br> <a href=http://smia.mx/comia/2021/index.html/>COMIA 2021</a></h2>
+            <center><img src="images/pub_comia2021.png" height="250"/></center>
+            <p>
+                Se presentaron los resultados de mi trabajo de tesis, explicados en el proyecto <a href="proyectos/p_pesm.html">PESM</a>. Accede a la <a href="docs/constanciaCOMIA2021.pdf">constancia de participación</a>.
+            </p>
+           
+        </div>
 
-								<!-- Box #1 -->
-									<section>
-										<header>
-											<h2> Estudios</h2>
-											<h3>Uso de Algoritmos Genéticos y Redes Neuronales para Control Predictivo en un Reactor tipo CSTR <br> Tesis de licenciatura - UNAM</h3>
-										</header>
-										<center> <img src="images/pub_tesis_ing.png" alt="Diagrama de flujo del sistema" width="300" /> </center>
-										
-										<p align="justify">
-											Diseño de un sistema de control predictivo para la operación de un CSTR para la producción de propilenglicol, capaz de reaccionar a diferentes tipos de perturbaciones. El sistema utiliza una red neuronal para estimar los parámetros ideales de control, que fueron encontrados por medio de un algoritmo genetico. Tanto la red como el algoritmo genetico fueron programados desde cero con Python. <a href=http://132.248.9.195/ptd2016/julio/0746861/Index.html>Liga a la tesis.</a>
-										</p>
-									</section>
+    </div>
 
-							</div>
-						</div>
-							
-					</div>
-					<div class="container">
-						<div class="row aln-center">
+    <div class="tipo-pub">
+        <div class="header-pub">
+            <h1> Papers</h1>
+        </div>
+        <div class="publicacion">
 
-							<div class="col-8 col-6-medium col-12-small">
+       <p>
+           <a href=http://revistaaristas.tij.uabc.mx/index.php/revista_aristas/article/view/121/119>Registro de Nubes de Puntos 2D: Comparación entre Métodos Iterativos y una Red neuronal Artificial</a>
+        </p>
+        <p>
+           <a href="">Sistema Prototipo de Monitoreo Subacuático Automático de Peces por Visión Estereoscópica y Aprendizaje Profundo</a> (Pendiente de publicación en la revista <a href=https://www.rcs.cic.ipn.mx/>Research in Computing Science</a>)
+        </p>
 
-								<!-- Box #2 -->
-                                    <section>
-                                        <header>
-                                            <h2>Congresos</h2>
-                                            <h3>Registro de Nubes de Puntos 2D: Comparación entre Métodos Iterativos y una Red neuronal Artificial <br> <a href=http://ci2t.tij.uabc.mx/>CI2T 2021</a></h3>
-                                        </header>
-                                        <center><img src="images/pub_ci2t2021.png" height="250"/></center>
-                                        <p>
-                                            El trabajo se basó en la comparación de la eficientia entre tres algoritmos iterativos (Iterative Closest Points, Random Sample Consensus y Coherent Point Drift) y una arquitectura propia de Red Neuronal Artificial, para la tarea de registro de nubes de puntos en 2D. Accede a la <a href="docs/constanciaCI2T.pdf">constancia de participación</a>.
-                                        </p>
-                                        <header>
-                                            <h3>Sistema Prototipo de Monitoreo Subacuático Automático de Peces por Visión Estereoscópica y Aprendizaje Profundo<br> <a href=http://smia.mx/comia/2021/index.html/>COMIA 2021</a></h3>
-                                        </header>
-                                        <center><img src="images/pub_comia2021.png" height="250"/></center>
-                                        <p>
-                                            Se presentaron los resultados de mi trabajo de tesis, explicados en el proyecto <a href="proyectos/p_pesm.html">PESM</a>. Accede a la <a href="docs/constanciaCOMIA2021.pdf">constancia de participación</a>.
-                                        </p>
-                                    </section>
+        </div>
 
-							</div>
-							
-						</div>
-					</div>
-					<div class="container">
-						<div class="row aln-center">
-
-							<div class="col-8 col-6-medium col-12-small">
-
-								<!-- Box #2 -->
-                                    <section>
-                                        <header>
-                                            <h2>Papers</h2>
-                                        </header>
-                                        <p>
-                                           <a href=http://revistaaristas.tij.uabc.mx/index.php/revista_aristas/article/view/121/119>Registro de Nubes de Puntos 2D: Comparación entre Métodos Iterativos y una Red neuronal Artificial</a>
-                                        </p>
-                                        <p>
-                                           <a href="">Sistema Prototipo de Monitoreo Subacuático Automático de Peces por Visión Estereoscópica y Aprendizaje Profundo</a> (Pendiente de publicación en la revista <a href=https://www.rcs.cic.ipn.mx/>Research in Computing Science</a>)
-                                        </p>
-                                    </section>
-
-							</div>
-							
-						</div>
-					</div>
-				</section>
+    </div>
 
 
-		</div>
+</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-
-	</body>
+</body>
 </html>

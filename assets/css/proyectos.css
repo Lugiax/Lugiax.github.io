@@ -1,0 +1,60 @@
+h1, h2{
+    color: #001219;
+}
+
+.seccion{
+    width: 60%;
+    margin: 4em auto;
+}
+
+.seccion > p{
+    text-align: justify;
+    color: #151515 ;
+}
+
+.seccion  a{
+    color: #005f73;
+    text-decoration: none;
+}
+
+.seccion  a:hover{
+    text-decoration: underline;
+}
+
+.tabla-proyectos{
+    display: grid;
+    width: 100%;
+    margin: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2em;
+}
+
+.proyecto{
+    width: 400px;
+    margin: auto;
+    background: #18306D;
+    height: 100%;
+    border-radius: 50px;
+}
+
+.proyecto p{
+    padding: 0 10%;
+    font-size: .9em;
+    line-height: 1.1em;
+    color: #fdfcdc;
+}
+.proyecto h2{
+    color: #f07167 ;
+}
+
+.proyecto h3{
+    color: #977672;
+}
+
+.header{
+    margin: 0 10%;
+}
+
+.proyecto img{
+    background: #EEEEEE;
+}

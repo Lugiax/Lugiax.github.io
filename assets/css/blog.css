@@ -2,6 +2,23 @@ body {
     color: #777;
 }
 
+a{
+    text-decoration: none;
+    color: #404040;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+figcaption{
+    font-size: 0.8em;
+    color: #2d3958;
+    text-align: justify;
+    padding: 0 3em;
+}
+
+
 
 .pure-img-responsive {
     max-width: 100%;
