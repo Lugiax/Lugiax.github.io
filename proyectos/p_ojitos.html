@@ -28,7 +28,29 @@
 <div class="l-box-lrg seccion">
     <h1>Clasificador Venas/Arterias</h1>
 
-    <p><a href="#"> Trabajo en proceso...</a></p>
+    <p>Se ha encontrado que existe una relación entre la morfología de los vasos sanguíneos que tiene el ojo en la retina con enfermedades tales como diabetes, hipertensión y arterioesclerosis. De tal forma que, encontrando una manera de representar la forma de los vasos sanguíneos por un índice, se tendría un indicador del desarrollo de tales enfermedades. Una aproximación se basa en segmentar y clasificar los vasos sanguíneos en imágenes de fondo de ojo. Para ello, diferentes formas de dar solución a este problema se han propuesto, desde técnicas clásicas (como el análisis de niveles de intensidad y extracción de características), hasta las más novedosas basadas en aprendizaje automático.</p>
+
+    <p>Nosotros proponemos una nueva técnica, inspirada en el trabajo de <a href="https://distill.pub/2020/selforg/mnist/">Randazzo <i>et. al.</i></a>, quienes desarrollaron un modelo de autómata celular neural para la clasificación de dígitos. Este método utiliza la información morfológica del dígito para hacer una clasificación píxel a píxel, método que puede extrapolarse para solucionar el problema de la clasificación.</p>
+
+    <p>La propuesta se basa en lo siguiente: adquirir los datos de las imágenes, hacer la segmentación de vasos sanguíneos, alimentar con esta información al autómata celular neural, que generará una máscara para las venas y otra para las arterias. Finalmente todos estos resultados son validados con métricas basadas en la matriz de confusión.</p>
+    <center><img class="pure-img-responsive" src="ojitos_imgs/DFlujo.png" width=80%>
+        <figcaption>Diagrama de flujo del propuesto de clasificación</figcaption></center>
+
+    <p>El autómata es multicapa, las primeras 3 capas son la imagen RGB, la cuarta es la máscara de segmentación de vasos sanguíneos y se le agregan 10 capas ocultas inicializadas en ceros. El autómata se llama neural porque la función de transición es una red neuronal simple, que dado el estado actual del autómata propone valores de actualización para el siguiente estado. Para poder realizar la inferencia, el autómata es inicializado, actualizado por 20 iteraciones y se extraen las últimas dos capas, que corresponderán a las máscaras de segmentación de las arterias y de las venas.</p>
+    <center><img class="pure-img-responsive" src="ojitos_imgs/AutomataDesc.png" width=80%>
+        <figcaption>Proceso de inferencia del autómata</figcaption></center>
+
+    <p>El autómata fue entrenado con un <i>dataset</i> de 27 imágenes, por 1000 épocas, evaluando el desempeño de la red con una función de pérdida L2. Los resultados en el conjunto de datos de prueba fueron muy satisfactorios, logrando una alta precisión en la clasificación de los vasos.</p>
+    <center><img class="pure-img-responsive" src="ojitos_imgs/FigAAAA.png" width=50%>
+        <figcaption>Resultados de la inferencia de autómata entrenado. En la fila superior están los datos de prueba y en la inferior ĺos resultados de la inferencia. Podemos apreciar que la clasificación es muy buena.</figcaption></center>
+
+    <p>Este nuevo método dio muy buenos resultados para la clasificación de vasos sanguíneos centrados en el disco óptico, logrando valores de exactitud mayores a 0.96, superando algunos otros métodos basados en aprendizaje automático.</p>
+
+    <p>Este trabajo fue presentado en el taller de <i>Machine Learning in Biomedicine</i> del <a href="http://computo.fismat.umich.mx/enc2021/">Encuentro Nacional de Cómputo 2021</a>.</p>
+    <center><iframe width="560" height="315" src="https://www.youtube.com/embed/H3tB8JpTMBE?start=2397" title="Conferencia" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
+    
+
+
 
     
 
