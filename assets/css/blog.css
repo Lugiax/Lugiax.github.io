@@ -18,6 +18,21 @@ figcaption{
     padding: 0 3em;
 }
 
+p span{
+    color:#0C396D ;
+}
+
+canvas {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+}
+
+code{
+    background: black;
+    color: white;
+}
+
 
 
 .pure-img-responsive {
@@ -32,11 +47,6 @@ figcaption{
     color: #001219 ;
 }
 
-canvas {
-  display: block;
-  position: absolute;
-  box-sizing: border-box;
-}
 
 /*
 Add transition to containers so they can push in and out.
@@ -78,31 +88,37 @@ The content `<div>` is where all your content goes.
     line-height: 1.6em;
 }
 
+.content p{
+    text-align: justify;
+    color: #121212;
+}
+
+.content h1 {
+    margin: 0.2em 0;
+    font-size: 3em;
+    font-weight: 300;
+}
+
+.content h2 {
+    font-weight: 300;
+    color: #30609E;
+    padding: 0;
+    margin-top: 1em;
+}
+
 .header {
      margin: 0;
-     color: #333;
+     color: #1E1E1E;
      text-align: center;
      padding: 2.5em 2em 0;
      border-bottom: 1px solid #eee;
  }
-    .header h1 {
-        margin: 0.2em 0;
-        font-size: 3em;
-        font-weight: 300;
-    }
-     .header h2 {
-        font-weight: 300;
-        color: #ccc;
-        padding: 0;
-        margin-top: 0;
-    }
 
 .content-subhead {
     margin: 50px 0 20px 0;
     font-weight: 300;
     color: #888;
 }
-
 
 
 /*
