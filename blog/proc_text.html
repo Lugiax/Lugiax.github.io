@@ -2,12 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>CA Blog</title>
+    <title>ProcText Blog</title>
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Carlos Aranda's blog.">
     <link rel="stylesheet" href="../assets/css/blog.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
 
@@ -36,12 +41,205 @@
     <div id="main">
         <div class="header">
             <h1>Procesamiento de texto</h1>
+            <h2>con python...</h2>
         </div>
 
         <div class="content">
 
-            <p>En construcción...</p>
-            
+            <p>
+                Si tengo un gusto culposo, ese es la política. No sabía lo importante que era hasta que me di cuenta que es lo que decide el futuro de un grupo de personas, comunidad, país o hasta el mundo. No todos podemos participar activamente, pero podemos la menos estar pendiente de lo que pasa. Actualmente en México tenemos un ejercicio gubernamental muy especial, apodado <span>"Las Mañaneras"</span>, único en su clase donde el presidente da conferencias de prensa diariamente, permitiendo la participación activa de periodistas y donde se dan a conocer posibles acciones y proyectos gubernamentales.
+            </p>
+
+            <p>
+                Para una persona normal es muy difícil poner atención a las conferencias por completo, y peor aún hacerlo todos los días. Entonces, poder hacer un análisis de la información ahí expresada, y condensarla en una forma compacta y conscisa, puede ayudar a rescatar información realmente importante para la sociedad, sin tener el filtro de los medios de comunicación.    
+            </p>
+
+            <p>
+                Y aquí debemos plantearnos la pregunta, ¿cómo hacer para extraer toda esa información sin perder tanto tiempo? La respuesta es evidente: <span>Automatizándolo</span>; sin embargo, llevarlo a cabo no lo es tanto. Primero debemos tener una manera de extraer la información de lo que se dice en las mañaneras, afortunadamente contamos con las <a href="https://www.gob.mx/presidencia/es/archivo/articulos/">versiones estenográficas</a> (versiones escritas) de todo lo que se escucha en estos eventos. Luego, ya que se tiene esta información, debemos tener un sistema computacional para interpretar y extraer información relevante. En las siguientes líneas intentaremos dar solución a este problema, utilizando Python, por supuesto.
+            </p>
+
+            <h2>Extrayendo información de páginas de internet</h2>
+
+                <p>
+                    A este proceso se le conoce como <i>web scraping</i> y aquí explicaré (al mismo momento que aprendo), una manera de navegar y extrear información simple, de manera rápida.
+                </p>
+
+            <h3>Solicitando información</h3>
+
+                <p>
+                    Así como uno teclea la dirección web a la que quiere navegar, y el navegador devuelve una hermosa (a veces no) página para visualizar, el navegador tuvo que solicitar esta informacion al servidor correspondiente. Con Python podemos solicitar la misma información, y para ello se utilizan librerías que ya pueden hacerlo (benditas librerías). La librería que se utilizará se llama <b><a href="https://docs.python-requests.org/es/latest/">Requests</a></b>, la cual es fácil de usar y muy intuitiva. Así que ejecutamos el siguiente código:
+                </p>
+                <pre><code class="python">
+import requests
+r = requests.get('https://www.gob.mx/presidencia/es/archivo/articulos?idiom=es&order=DESC&page=1')
+                </code></pre>
+
+                <p>
+                    Esta página tiene un listado de las últimas 9 conferencias que dió el presidente. Cada una tiene un link que nos llevará a su versión escrita. Sin embargo, parece que el resultado del código anterior devuelve algo diferente al formato HTML (parece más un Query de JavaScript), así que hay que buscar dentro del texto; y para eso no hay nada mejor que las expresiones regulares.
+                </p>
+                <pre><code class="python">
+import requests
+import re
+r = requests.get('https://www.gob.mx/presidencia/es/archivo/articulos?idiom=es&order=DESC&page=1')
+links = ['https://www.gob.mx'+s for s in
+          re.findall(r'(\/presidencia\/es\/articulos\/version-estenografica-[a-z 0-9 -]+)\?idiom=es',
+                     r.text)
+        ]
+                </code></pre>
+                <p>
+                    Así, sabiendo cómo comienza el link que estamos buscando, podemos encontrarlo en todo el texto que nos arroja <b>requests</b>. En <code>links</code> tenemos una lista con todos los enlaces versiones estenográficas que encontramos en la página principal, por lo que ahora podemos acceder a ellas fácilmente. Cada una de las páginas de estas versiones, al ser accedida con <b>requests</b> devuelve una bonita cadena en HTML, la cual puede ser analizada por <a href="https://beautiful-soup-4.readthedocs.io/en/"latest/>Beautiful Soup</a>, de la siguiente manera:
+                </p>
+                <pre><code class="python">
+texto = requests.get(link).text
+soup = BeautifulSoup(texto, 'html.parser')
+titulo = str(soup.select('h1')[0].string)
+subtitulo = str(soup.select('h2')[0].string)
+discurso = '\n'.join([str(s.string) for s in soup.select('.article-body p')])
+                </code></pre>
+                <p>
+                    Resulta que el discurso de toda la conferencia se encuentra en la sección <code>article-body</code> y naturalmente cada párrafo está definido por una etiqueta <code>p</code>. Así que para obtener todos los párrafos en forma de lista ejecutamos <code>soup.select('.article-body p')</code>. Finalmente, utilizando comprehensión de listas accedemos al atributo <code>.string</code> de cada elemento, lo convertimos en cadena y unimos todo en una sola cadena de texto con saltos de línea. Además, se encuentran tanto el título principal, como el subtítulo, generando algo como:
+                </p>
+                <pre><code>
+>>>'''Versión estenográfica. Conferencia de prensa del presidente Andrés Manuel López Obrador del 28 de julio de 2021
+Acto encabezado por el presidente de México, Andrés Manuel López Obrador desde Palacio Nacional
+PRESIDENTE ANDRÉS MANUEL LÓPEZ OBRADOR:Buenos días.
+Bueno, vamos a informar el día de hoy. Tenemos tres temas:
+Uno, relacionado con el informe de los documentos que se encontraron en el gobierno sobre lo del espionaje que hacía ...'''
+                    
+                </code></pre>
+                <p>
+                    Muy bien, ya podemos entonces extraer fácilemente las versiones estenográficas publicadas en la página oficial del gobierno. El siguiente paso es extraer información relevante de ellas.
+                </p>
+
+                <h2>Procesamiento de texto con NLP</h2>
+
+                <p>
+                    <i>NLP</i> (<i>Natural Lenguage Processing</i>, en inglés) está comprendido por técnicas de inteligencia artificial que pretenden hacer que una computadora pueda "comprender" información que manejamos los humanos tanto escrita como hablada. Estamos de acuerdo que el lenguage que utilizamos para comunicarnos es (en algunos idiomas más que otros) muy complejo, de lo contrario aprenderíamos otros idiomas como las tablas de multiplicar. Y es que el lenguage tiene componentes que pueden ser utilizadas de muchas maneras diferentes, dando una enorme cantidad de combinaciones que, aprenderlas todas, no es práctico.
+                </p>
+
+                <p>
+                    Entonces, ¿cómo hacer para que una computadora pueda tener esta capacidad? Recordemos que aunque hablemos de dispositivos "inteligentes", realmente no lo son, y definir inteligencia es un interesante tema filosófico del que no profundizaremos aquí. Afortunadamente, Python ha sido uno de los lenguajes de programación más importante en el campo de la Inteligencia Artificial, por lo que no nos debería sorprender la gran cantidad de librerías existentes para hacer tareas de NLP. Por ejemplo: <a href="https://www.nltk.org/">NLTK</a>, <a href="https://textblob.readthedocs.io/en/dev/">TextBlob</a>, <a href="https://spacy.io/">spaCy</a> y <a href="https://textacy.readthedocs.io/en/latest/">textacy</a>. Por la sencillez, el poder y la maravillosa documentación utilizaremos <span>spaCy</span>.
+                </p>
+
+                <p>
+                    La gran ventaja es que tiene modelos entrenados en diferentes idiomas, entre ellos el español. Su uso básico es extremadamente sencillo, por ejemplo, para comenzar con el análisis se ejecuta lo siguiente:
+                </p>
+                <pre><code class="python">
+import spacy
+nlp = spacy.load('es_core_news_sm')
+doc = nlp(discurso)
+                </code></pre>
+
+                <p>
+                    Con las líneas anteriores se carga el modelo en español en la variable <code>nlp</code>. Este modelo permite extraer información increíblemente útil sobre en análisis del texto; para procesarlo simplemente se pasa el texto como argumento al modelo, y lo guardamos en la variable <code>doc</code>. Para poder saber qué es todo lo que se puede hacer con esta librería, se puede revisar su <a href="https://spacy.io/usage">documentación</a>. Aquí es donde debemos preguntarnos, ¿qué nos interesa saber? Una lista de cosas interesantes que propongo es la siguiente:
+                    <ul>
+                        <li>Conteo de palabras más frecuentes</li>
+                        <li>Conteo de menciones a medios de comunicación</li>
+                        <li>Extracción de diálogos entre periodistas y el presidente</li>
+                    </ul>
+                </p>
+
+                <h2>Conteo de palabras</h2>
+
+                <p>
+                    Estamos de acuerdo que cada persona tiene una manera perticular de expresarse. Esta expresión se define en gran manera por las palabras que utiliza. En este caso, quienes hemos visto <span>las mañaneras</span> hemos notado un estilo característico de llevarlas a cabo y de los temas que se tratan. Con esta información se podría esperar que exista un grupo de palabras que se mencionan regularmente y que podrían caracterizar el tipo de discurso de estas conferencias.
+                </p>
+
+                <p>
+                    ¿Cómo hacemos esto? Vamos a visualizar el resultado de este análisis rápido, utilizando una técnica de visualización muy intuitiva llamada <b>worldcloud</b>. Esta técnica se basa en crear una imagen llena de palabras donde su tamaño corresponde al su frecuencia de aparición en el texto. Por ejemplo, tomemos las últimas 5 conferencias y, sin hacer ningún tipo de limpieza, apreciemos su nube de palabras:
+                </p>
+
+                <center><img class="pure-img-responsive" src="imgs/proctext_nube1.png" width=350></center>
+
+                <p>
+                    Es claro que debemos hacer una limpieza de las palabras que nos interesan. Para ello hacemos lo siguiente: eliminar las <i>stop words</i> (las palabras más comunes y que no dan más información sobre el contexto), los signos de puntuación, los espacios, los números (en letra también) y los verbos. De tal manera nos quedamos con palabras que pueden tener un significado real del contexto de la frase. Este filtrado se hace fácilmente con spaCy de la siguiente manera:
+                </p>
+                <pre><code class="python">
+palabras = [token.text for token in doc if (token.text not in stop_words)
+                                 and not (token.is_punct or
+                                          token.is_space or
+                                          token.is_stop or
+                                          token.pos_=='VERB' or
+                                          token.is_digit)]
+
+                </code></pre>
+                <p>
+                    Con este nuevo filtrado, mejora la calidad de la información obtenida. Haciendo un análisis de 10 de las conferencias de prensa, se genera la nueva nube de palabras:
+                </p>
+                <center><img class="pure-img-responsive" src="imgs/proctext_nube_10confs.png" width=350></center>
+                <p>
+                    Claro que podemos filtrar aún más esto con una lista de palabras específicas que queremos conocer. Por ejemplo, saber cuántas veces se ha mencionado la palabra <b>corrupción</b> a través del tiempo y empatarlo con sucesos políticos del país.
+                </p>
+
+
+                <h2>Análisis de palabras en el tiempo</h2>
+
+                <p>Ya podemos extraer palabras en una o más conferencias y contarlas. ¿Por qué no hacer una cuenta de algunas palabras y observar cómo han sido su variación de menciones a lo largo del tiempo? Esto es relativamente sencillo de hacer, pues solo guardamos el conteo de cada en un DataFrame (con <a href="https://pandas.pydata.org/">Pandas</a>), cuidando de guardar también la fecha. Una ves hecha la revisión en todas las conferencias que nos interesan, tomaremos en cuenta solamente las siguientes palabras: <b>corrupción</b>, <b>transformación</b>, <b>apoyo</b> y <b>bienestar</b>. Estas palabras son algunas de las más características del presente gobierno, por lo que nos interesa saber qué tanto se utilizan.</p>
+
+                <p>Se hizo este análisis en un total de 78 conferencias a partir del 16 de agosto hacia atrás. Los resultados se muestran en la siguiente imagen:</p>
+                <center><img class="pure-img-responsive" src="imgs/proctext_historico.png" width=90%></center>
+
+
+                <h2>Conteo de menciones a medios de comunicación</h2>
+
+                <p>
+                    Este análisis es relativamente sencillo, pues solamente necesitamos saber cuáles son los nombres de los medios (con una búsqueda rápida en internet podemos ver cuáles son), y con esto buscar estas palabras en los documentos. Tomemos una pequeña lista de los más famosos:
+                </p>
+                <pre><code class="python">
+lista_de_medios="""
+reforma el-universal la-jornada aristegui milenio imagen el-financiero
+azteca televisa animal-político radio-fórmula 
+""".split()
+                </code></pre>
+                <p>
+                    Aquí nos encontramos un problema, pues algunos medios tiene más de una palabra en su nombre. Para intentar darle solución se hará representará el nombre completo separado por guiones, de esta manera se puede hacer un análisis rápido si se trata o no de un medio:
+                </p>
+
+                <pre><code class="python">
+def medio_valido(t, ventana = 1):
+    medio = [v.replace('-', ' ') for v  in lista_de_medios if t.text in v and t.pos_ in ['NOUN', 'PROPN']]
+    if len(medio) and medio[0] in doc[t.i-ventana:t.i+ventana+1].text:
+        return medio[0]
+    else:
+        return None
+                </code></pre>
+
+                <p>
+                    Con esto, y analizando un total de 45 conferencias, la frecuencia de los medios que se buscaron está repesentada en la siguiente image. Sin embargo, hay que tener en cuenta que no se está tomando la semántica de la frase en donde se encontraron las palabras. Tal vez es por esto que se encontró una coincidencia desproporcionada entre la frecuencia de aparición de las diferentes palabras:
+                </p>
+                <ul>
+                    <li>Reforma: 137910274</li>
+                    <li>Imagen: 10243</li>
+                    <li>El Universal: 915</li>
+                    <li>La Jornada: 67</li>
+                    <li>El Financiero: 49</li>
+                    <li>Milenio: 19</li>
+                    <li>Televisa: 13</li>
+                    <li>Radio Fórmula: 3</li>
+                    <li>Aristegui: 3</li>
+                    <li>Azteca: 1</li>
+                </ul>
+
+                <center><img class="pure-img-responsive" src="imgs/proctext_nube_medios.png" width=350></center>
+
+                <p>
+                    A pesar de tener un gran número de menciones en las conferencias, las palabras "reforma" e "imagen" pueden ser utilizadas en otros contextos, por lo que una revisión semántica de las frases permitiría verificar que se tratan de los medios de comunicación.
+                </p>
+
+                <h2>Extracción de seciones de diáolgo entre el presidente y los reporteros</h2>
+
+                <p>
+                    Además de los discursos que dan las diferentes personalidades en las mañaneras, una de las secciones más importantes es la de <span>Preguntas y Respuestas</span>. Aquí, esas personalidades, principalmente el presidente, interactúan con algunos de los reporteros. De estos discursos, algunos datos estadístcos son interesanres para analizar. Por ejemplo, algunas preguntas interesantes que podrian hacerse son:
+                </p>
+                <ul>
+                    <li>¿Cuál ha sido la frecuencia de participación de los diferentes reoprteros?</li>
+                    <li>¿Qué tan corta o larga es la conversación?</li>
+                    <li>¿Qué medios son los que han tenido más reporteros que hayan participado?</li>
+                    <li>¿Cuáles son las palabras más utilizadas en sus preguntas?</li>
+                </ul>
+
+                <p>Este proyecto sigue en proceso... Vuelve después por más...</p>
+
         </div>
     </div>
 </div>
