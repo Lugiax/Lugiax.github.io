@@ -38,6 +38,7 @@ h1, h2{
 }
 
 .proyecto p{
+    text-align: justify;
     padding: 0 10%;
     font-size: .9em;
     line-height: 1.1em;

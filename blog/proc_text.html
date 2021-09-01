@@ -32,7 +32,7 @@
                 <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Procesamiento de texto</a></li>
 
                 <li class="pure-menu-item menu-item-divided">
-                    <a href="../index.html" class="pure-menu-link">Ir a proyectos</a>
+                    <a href="../index.html" class="pure-menu-link">Ir a portafolio</a>
                 </li>
             </ul>
         </div>
@@ -174,10 +174,9 @@ palabras = [token.text for token in doc if (token.text not in stop_words)
 
                 <h2>Análisis de palabras en el tiempo</h2>
 
-                <p>Ya podemos extraer palabras en una o más conferencias y contarlas. ¿Por qué no hacer una cuenta de algunas palabras y observar cómo han sido su variación de menciones a lo largo del tiempo? Esto es relativamente sencillo de hacer, pues solo guardamos el conteo de cada en un DataFrame (con <a href="https://pandas.pydata.org/">Pandas</a>), cuidando de guardar también la fecha. Una ves hecha la revisión en todas las conferencias que nos interesan, tomaremos en cuenta solamente las siguientes palabras: <b>corrupción</b>, <b>transformación</b>, <b>apoyo</b> y <b>bienestar</b>. Estas palabras son algunas de las más características del presente gobierno, por lo que nos interesa saber qué tanto se utilizan.</p>
+                <p>Ya podemos extraer palabras en una o más conferencias y contarlas. ¿Por qué no hacer una cuenta de algunas palabras y observar cómo han sido su variación de menciones a lo largo del tiempo? Esto es relativamente sencillo de hacer, pues solo guardamos el conteo de cada en un DataFrame (con <a href="https://pandas.pydata.org/">Pandas</a>), cuidando de guardar también la fecha. Una ves hecha la revisión en todas las conferencias que nos interesan, consideramos un conjunto de palabras que queremos analizar (pues no tiene caso contar palabras como "hasta", "mañana", etc.), y podemos graficar su frecuencia de aparición en cada conferencia.</p>
 
-                <p>Se hizo este análisis en un total de 78 conferencias a partir del 16 de agosto hacia atrás. Los resultados se muestran en la siguiente imagen:</p>
-                <center><img class="pure-img-responsive" src="imgs/proctext_historico.png" width=90%></center>
+                <div id="graph"></div>
 
 
                 <h2>Conteo de menciones a medios de comunicación</h2>
@@ -187,44 +186,44 @@ palabras = [token.text for token in doc if (token.text not in stop_words)
                 </p>
                 <pre><code class="python">
 lista_de_medios="""
-reforma el-universal la-jornada aristegui milenio imagen el-financiero
-azteca televisa animal-político radio-fórmula 
-""".split()
+Reforma,El Universal,La Jornada,Aristegui,Milenio,Grupo Imagen,El Financiero,'\
+'TV Azteca,Televisa,Animal Político,Radio Fórmula,MVS,El Economista,La Razón'.split(',')
                 </code></pre>
                 <p>
-                    Aquí nos encontramos un problema, pues algunos medios tiene más de una palabra en su nombre. Para intentar darle solución se hará representará el nombre completo separado por guiones, de esta manera se puede hacer un análisis rápido si se trata o no de un medio:
+                    La manera más sencilla para detectar si se trata o no de un medio, es utilizar spaCy para identificar todas las entidades en el texto que son organizaciones. Sin embargo, este proceso no es perfecto y debe ser afinado, pues muchas veces falla al detectar las organizaciones y, por lo tanto, no hace el conteo adecuado. En otras ocasiones, los nombres encontrados no coinciden perfectamente con el nombre del medio, por ejemplo: "el Reforma" y "Reforma", "Universal" y "El Universal", además de algunas otras variantes. Para resolver esto podemos hacer una comparación entre las palabras, precisamente calculando la distancia normalizada de <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein</a>. Esta métrica permite tener una idea de la diferencia entre caracteres de las dos palabras, donde 0 equivale a una similitud exacta y 1 a una total diferencia. Calculando esta distancia para las entidades encontradas contra la lista de medios, podemos establecer un umbral para eliminara las palabras que sean muy diferentes y quedarnos con la que tenga el mayor índice.
                 </p>
 
                 <pre><code class="python">
-def medio_valido(t, ventana = 1):
-    medio = [v.replace('-', ' ') for v  in lista_de_medios if t.text in v and t.pos_ in ['NOUN', 'PROPN']]
-    if len(medio) and medio[0] in doc[t.i-ventana:t.i+ventana+1].text:
-        return medio[0]
-    else:
-        return None
+def contar_medios(doc):
+    medios_encontrados=[]
+    for ent in doc.ents:
+        if ent.label_ in ['ORG']:
+            scores = [1-levenshtein.normalized_distance(ent.text.strip(), m.text) for m in medios]
+            idx = np.argmax(scores)
+            if scores[idx]>umbral:
+                medios_encontrados.append(medios[idx].text)
+    
+    return Counter(medios_encontrados)
                 </code></pre>
 
                 <p>
-                    Con esto, y analizando un total de 45 conferencias, la frecuencia de los medios que se buscaron está repesentada en la siguiente image. Sin embargo, hay que tener en cuenta que no se está tomando la semántica de la frase en donde se encontraron las palabras. Tal vez es por esto que se encontró una coincidencia desproporcionada entre la frecuencia de aparición de las diferentes palabras:
+                    Analizando todos los archivos disponibles de las mañaneras, se obtiene el conteo de las menciones de los medios. Como podemos ver a continuación. Este método es muy poco eficiente, pues encontró muy pocas menciones para estos medios. 
                 </p>
                 <ul>
-                    <li>Reforma: 137910274</li>
-                    <li>Imagen: 10243</li>
-                    <li>El Universal: 915</li>
-                    <li>La Jornada: 67</li>
-                    <li>El Financiero: 49</li>
-                    <li>Milenio: 19</li>
-                    <li>Televisa: 13</li>
-                    <li>Radio Fórmula: 3</li>
-                    <li>Aristegui: 3</li>
-                    <li>Azteca: 1</li>
+                    <li>El Universal       18</li>
+                    <li>MVS                 4</li>
+                    <li>Televisa            8</li>
+                    <li>La Razón            4</li>
+                    <li>El Financiero      10</li>
+                    <li>Radio Fórmula       2</li>
+                    <li>Grupo Imagen        5</li>
+                    <li>TV Azteca           1</li>
+                    <li>Animal Político     4</li>
+                    
                 </ul>
 
                 <center><img class="pure-img-responsive" src="imgs/proctext_nube_medios.png" width=350></center>
 
-                <p>
-                    A pesar de tener un gran número de menciones en las conferencias, las palabras "reforma" e "imagen" pueden ser utilizadas en otros contextos, por lo que una revisión semántica de las frases permitiría verificar que se tratan de los medios de comunicación.
-                </p>
 
                 <h2>Extracción de seciones de diáolgo entre el presidente y los reporteros</h2>
 
@@ -244,7 +243,8 @@ def medio_valido(t, ventana = 1):
     </div>
 </div>
 
-<!-- <script src="/js/ui.js"></script> -->
+<script src='https://cdn.plot.ly/plotly-2.3.1.min.js'></script>
+<script src='scripts/graficas.js'></script>
 
 </body>
 </html>
