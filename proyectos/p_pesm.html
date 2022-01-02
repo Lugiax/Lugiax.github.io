@@ -1,54 +1,68 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>PESM</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Carlos Aranda's github project page.">
-	<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
-    <link rel="stylesheet" href="../assets/css/general.css">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-    <link rel="stylesheet" href="../assets/css/proyectos.css">
-</head>
-<body>
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Proyectos</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-<div class="header">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-        <!-- <a class="pure-menu-heading" href="">Carlos Aranda</a> -->
-
-        <ul class="pure-menu-list">
-            <li class="pure-menu-item"><a href="../index.html" class="pure-menu-link">Inicio</a></li>
-            <li class="pure-menu-item pure-menu-selected"><a href="../proyectos.html" class="pure-menu-link">Proyectos</a></li>
-            <li class="pure-menu-item"><a href="../publicaciones.html" class="pure-menu-link">Publicaciones</a></li>
-            <li class="pure-menu-item"><a href="../blog.html" class="pure-menu-link">Blog</a></li>
-        </ul>
-    </div>
-</div>
-
-<div class="l-box-lrg seccion">
-    <h1>Prototipo Estereoscópico de Monitoreo Subacuático</h1>
-
-    <p>
-		Como proyecto de tesis de maestría, desarrollé un prototipo de un sistema de detección y medición automática de peces. Este utiliza una red profunda tipo <a href="">YOLO</a> para hacer la detección de peces en la imagen, entrenada con <i>transfer learning</i> e imágenes subacuáticas de peces. Además se utiliza geometría epipolar para hacer la reconstrucción de los puntos que nos interesan (boca y aleta), con lo que se estima la longitud total del pez.
-	</p>
-
-	<p>
-		Se realizaron pruebas en un ambiente controlado (pecera con control de iluminación y figuras rígidas de peces), donde se obtuvieron muy buenos resultados con errores de hasta un 2.5% de la longitud real del pez. Se realizó una primera prueba en un ambiente semi-contolado (peces vivos y poco control sobre la iluminación y contaminación del agua), obteniendo resultados aceptables, aunque con una gran oportunidad de mejora.
-	</p>
-
-
-	<p>
-		Los resultados de este trabajo se presentaron en el XIII Congreso Mexicano de Inteligencia Artificial (<a href=http://smia.mx/comia/2021/index.html>COMIA 2021</a>), y está en proceso de publicarse en un número especial de la revista Research in Computer Science. A continuación se muestra la participación en este congreso.
-	</p>
-
-	<center>
-	<iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FSMIA.Mexico%2Fvideos%2F221254729505715%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
-	</center>
-
+  </head>
   
-</div>
 
+  <body class="d-flex h-100 text-center text-white bg-dark">
+    
+  <div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto mx-auto">
+      <div>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+          <a class="nav-link text-white-50" href="../index.html">Presentación</a>
+          <a class="nav-link text-white" href="../proyectos.html">Proyectos</a>
+          <a class="nav-link text-white-50" href="../publicaciones.html">Publicaciones</a>
+          <a class="nav-link text-white-50" href="../blog.html">Blog</a>
+        </nav>
+      </div>
+    </header>
 
+<main class="">
+
+    <div class="container bg-light text-dark rounded-3">
+        <div class='row text-center py-3'>            
+        <h1 class='h1 text-primary'>Prototipo Estereoscópico de Monitoreo Subacuático</h1>
+        </div>
+        <div class='row w-75 mx-auto'>
+            <div class='col text-start'>
+                    <p> Como proyecto de tesis de maestría, desarrollé un prototipo de un sistema de detección y 
+                      medición automática de peces. Este utiliza una red profunda tipo <a href="">YOLO</a> para 
+                      hacer la detección de peces en la imagen, entrenada con <i>transfer learning</i> e imágenes 
+                      subacuáticas de peces. Además se utiliza geometría epipolar para hacer la reconstrucción de 
+                      los puntos que nos interesan (boca y aleta), con lo que se estima la longitud total del pez.
+                    </p>
+                    <p> Se realizaron pruebas en un ambiente controlado (pecera con control de iluminación y figuras 
+                      rígidas de peces), donde se obtuvieron muy buenos resultados con errores de hasta un 2.5% de la 
+                      longitud real del pez. Se realizó una primera prueba en un ambiente semi-contolado (peces vivos y 
+                      poco control sobre la iluminación y contaminación del agua), obteniendo resultados aceptables, 
+                      aunque con una gran oportunidad de mejora.
+                    </p>
+                    <p> Los resultados de este trabajo se presentaron en el XIII Congreso Mexicano de Inteligencia 
+                      Artificial (<a href=http://smia.mx/comia/2021/index.html>COMIA 2021</a>), y está en proceso de 
+                      publicarse en un número especial de la revista Research in Computer Science 2022. A continuación 
+                      se muestra la participación en este congreso.
+                    </p>
+            </div>
+        </div>
+
+        <center>
+        <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2FSMIA.Mexico%2Fvideos%2F221254729505715%2F&show_text=false&width=560&t=0" width="560" height="314" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>
+        </center>
+
+    
+    </div>
+
+</main>
 
 </body>
 </html>
